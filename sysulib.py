@@ -2,7 +2,8 @@
 # coding=utf8
 
 # -*- coding: utf-8 -*-
-
+# use:
+# python3 sysulib.py -m http.server
 # 需要安装的库: requests
 # 其实就是图书馆网站的一个bug
 # http://blog.csdn.net/sinat_37841010/article/details/62041927?locationNum=7&fps=1

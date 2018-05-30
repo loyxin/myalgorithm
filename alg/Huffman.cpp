@@ -1,4 +1,4 @@
-// »ô·òÂü±àÂëÊÇÒ»ÖÖÎŞÇ°×º±àÂë¡£½âÂëÊ±²»»á»ìÏı
+// éœå¤«æ›¼ç¼–ç æ˜¯ä¸€ç§æ— å‰ç¼€ç¼–ç ã€‚è§£ç æ—¶ä¸ä¼šæ··æ·†
 
 #include<iostream>
 using namespace std;
@@ -7,19 +7,19 @@ template<class T>
 
 
 /**
- * @brief Ê÷µÄ½ÚµãµÄ¶¨Òå
+ * @brief æ ‘çš„èŠ‚ç‚¹çš„å®šä¹‰
  * @details
  *
- * @param data Êı¾İ
- * @param rchild ÓÒ¶ù×Ó
- * @param lchild ×ó¶ù×Ó
- * @param nonlchild Ôİ´æÕæÕıµÄlchild,ÎªÁË·½±ãÅÅĞò
+ * @param data æ•°æ®
+ * @param rchild å³å„¿å­
+ * @param lchild å·¦å„¿å­
+ * @param nonlchild æš‚å­˜çœŸæ­£çš„lchild,ä¸ºäº†æ–¹ä¾¿æ’åº
  */
 class tree{
 
 	public:
 		/**
-		 * @brief Êı¾İ²»Ä¬ÈÏ£¬ÆäËûÄ¬ÈÏNULL,
+		 * @brief æ•°æ®ä¸é»˜è®¤ï¼Œå…¶ä»–é»˜è®¤NULL,
 		 */
 		tree(T data, tree<T>* parent = NULL,
 		tree<T>* lchild = NULL, tree<T>* rchild = NULL):
@@ -27,8 +27,8 @@ class tree{
 		{
 		}
 		/**
-		 * @brief Îö¹¹
-		 * @details delete ½ÚµãÓëÄ¸Ç×µÄ¹ØÏµ£¬ÔÙµİ¹éÉ¾³ı¸Ã½ÚµãµÄ¶ù×Ó
+		 * @brief ææ„
+		 * @details delete èŠ‚ç‚¹ä¸æ¯äº²çš„å…³ç³»ï¼Œå†é€’å½’åˆ é™¤è¯¥èŠ‚ç‚¹çš„å„¿å­
 		 */
 		~tree(){
 			cout<<"delete";
@@ -71,22 +71,22 @@ class tree{
 class Huffman{
 	public:
 	/**
-	 * @details ³õÊ¼»¯£¬²¢ÅÅĞòºÃÊı¾İµÄ´óĞ¡£¬´ÓĞ¡µ½´ó£¬È«²¿ÖÃÓÚ×ó¶ù×Ó,²¢¼ìÑéÊÇ·ñ¼ÓÆğÀ´Îª100
-	 * @param proba Êı¾İµÄÍ·Ö¸Õë
-	 * @param length Êı¾İµÄ³¤¶È
+	 * @details åˆå§‹åŒ–ï¼Œå¹¶æ’åºå¥½æ•°æ®çš„å¤§å°ï¼Œä»å°åˆ°å¤§ï¼Œå…¨éƒ¨ç½®äºå·¦å„¿å­,å¹¶æ£€éªŒæ˜¯å¦åŠ èµ·æ¥ä¸º100
+	 * @param proba æ•°æ®çš„å¤´æŒ‡é’ˆ
+	 * @param length æ•°æ®çš„é•¿åº¦
 	 */
 	Huffman(double* proba,int length):
 	length(length){
-		//ÅÅĞò 
+		//æ’åº 
 		sort(proba,proba+length);
 		this->p = new tree<double>(*proba);
 		tree<double>* temp = p;
-		//½Úµã¸³Öµ 
+		//èŠ‚ç‚¹èµ‹å€¼ 
 		for(int i=1;i<length;++i){
 			temp = new tree<double>(*(proba+i),temp, NULL, NULL);
 			temp->parent->lchild = temp;
 		}
-		//¼ì²é×ÜÖµÎª100 
+		//æ£€æŸ¥æ€»å€¼ä¸º100 
 		double x=0.0;
 		temp = p;
 		for(int i =0;i<length;++i){
@@ -102,85 +102,85 @@ class Huffman{
 		delete p;
 	}
 	/**
-	 * @details Éú³É»ô·òÂüÊ÷ 
+	 * @details ç”Ÿæˆéœå¤«æ›¼æ ‘ 
 	 */
 	void TreeGe(){
         
         for(;p->lchild!=NULL;){
             double x = p->data+p->lchild->data;
-            //¹¹½¨ĞÂµÄ½Úµã
+            //æ„å»ºæ–°çš„èŠ‚ç‚¹
             tree<double>* temp = new tree<double>(x);
-            //È·¶¨½ÚµãµÄ¶ù×Ó
+            //ç¡®å®šèŠ‚ç‚¹çš„å„¿å­
             temp->nonlchild=p->lchild;
             temp->rchild=p;
-            //È·¶¨¶ù×ÓµÄÄ¸Ç×ÊÇ¸Ã½Úµã
+            //ç¡®å®šå„¿å­çš„æ¯äº²æ˜¯è¯¥èŠ‚ç‚¹
             temp->nonlchild->parent=temp;
             temp->rchild->parent=temp;
-            //×ó¶ù×ÓµÄ×ó¶ù×Ó¸³Öµ¸ø¸Ã½ÚµãµÄ×ó¶ù×Ó£¬ÊµÏÖÅÅĞòÁ´½Ó
+            //å·¦å„¿å­çš„å·¦å„¿å­èµ‹å€¼ç»™è¯¥èŠ‚ç‚¹çš„å·¦å„¿å­ï¼Œå®ç°æ’åºé“¾æ¥
             if(temp->nonlchild->lchild!=NULL){
             	temp->lchild=temp->nonlchild->lchild;
             	temp->nonlchild->lchild=NULL;
             }
-            //¶ù×ÓµÄ×ó¶ù×ÓÖÃÓÚNULL
+            //å„¿å­çš„å·¦å„¿å­ç½®äºNULL
             temp->rchild->lchild=NULL;
             insertsort(temp);
 		}
 	}
 
 	/**
-	 * @brief ²åÈëÅÅĞò
+	 * @brief æ’å…¥æ’åº
 	 *
-	 * @param insert ²åÈëµÄ½Úµã
+	 * @param insert æ’å…¥çš„èŠ‚ç‚¹
 	 */
 	void insertsort(tree<double>* insert){
 		if(insert==NULL) return ;
 		tree<double>* temp = insert->lchild;
-		//È·¶¨¸ùÖ¸Õë
+		//ç¡®å®šæ ¹æŒ‡é’ˆ
 		if(temp==NULL) {p=insert;return;}
 		if(insert->data>=temp->data)
             p=temp;
         else
             p=insert;
-		// ¸ù¾İÁ½¸ö½ÚµãµÄÎ»ÖÃ ÈıÖÖÇé¿ö 
+		// æ ¹æ®ä¸¤ä¸ªèŠ‚ç‚¹çš„ä½ç½® ä¸‰ç§æƒ…å†µ 
 		for(;insert->data>=temp->data;temp=temp->lchild){
-				//½»»»ºótempµÄÏÂÒ»¸ö½ÚµãÎªinsert 
+				//äº¤æ¢åtempçš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹ä¸ºinsert 
                 if(temp==insert)temp=temp->lchild;
                 if(temp==NULL) break;
                 if(insert->parent==NULL){
-                	//»»Ä¸Ç× 
+                	//æ¢æ¯äº² 
                     temp->parent=insert->parent;
                     insert->parent=temp;
- 					//»»¶ù×Ó 
+ 					//æ¢å„¿å­ 
                     insert->lchild=temp->lchild;
                     temp->lchild=insert;
-                    //Èç¹ûtemp²»ÊÇ×îºóµÄ½Úµã¾ÍÒª»»¶ù×ÓµÄÄ¸Ç× 
+                    //å¦‚æœtempä¸æ˜¯æœ€åçš„èŠ‚ç‚¹å°±è¦æ¢å„¿å­çš„æ¯äº² 
                     if(insert->lchild!=NULL)
                         insert->lchild->parent=insert;
-					// ·ÀÖ¹½øÈëµÚ¶ş¸öÅĞ¶Ï 
+					// é˜²æ­¢è¿›å…¥ç¬¬äºŒä¸ªåˆ¤æ–­ 
 					if(temp->lchild ==NULL) break;
                 }
 				else if(temp->lchild==NULL){
-					//»»Ä¸Ç×µÄ¶ù×Ó 
+					//æ¢æ¯äº²çš„å„¿å­ 
                     insert->parent->lchild=temp;
-                    //»»Ä¸Ç×
+                    //æ¢æ¯äº²
                     temp->parent=insert->parent;
 					insert->parent=temp;
-					//»»¶ù×Ó 
+					//æ¢å„¿å­ 
                     insert->lchild=NULL;
                     temp->lchild=insert;
                     
                     return;
                 }
 				else{
-					//»»Ä¸Ç×µÄ¶ù×Ó
+					//æ¢æ¯äº²çš„å„¿å­
                     insert->parent->lchild=temp;
-                    //»»Ä¸Ç×
+                    //æ¢æ¯äº²
                     insert->parent=temp;
                     temp->parent=insert->parent;
-					//»»¶ù×Ó 
+					//æ¢å„¿å­ 
 					insert->lchild=temp->lchild;
 					temp->lchild=insert;
-					//»»¶ù×ÓµÄÄ¸Ç×
+					//æ¢å„¿å­çš„æ¯äº²
 					insert->lchild->parent=insert;		
 				}
 		}
@@ -215,17 +215,17 @@ return 0;
 #endif
 
 /*
-## ×Ü½á
+## æ€»ç»“
 
-ÔÚ´æ½ÚµãµÄÊı¾İµÄÊ±ºòÎªÁË½ÚÔ¼ÄÚ´æ£¬Ğ´³ÉÖ¸Õë£¬µ«ÊÇÔÚ
+åœ¨å­˜èŠ‚ç‚¹çš„æ•°æ®çš„æ—¶å€™ä¸ºäº†èŠ‚çº¦å†…å­˜ï¼Œå†™æˆæŒ‡é’ˆï¼Œä½†æ˜¯åœ¨
 ```cpp
 double x = *(p->data)+*(p->lchild->data);
-//¹¹½¨ĞÂµÄ½Úµã
+//æ„å»ºæ–°çš„èŠ‚ç‚¹
 tree<double>* temp = new tree<double>(&x);
 ```
-ÖĞ½á¹ûÃ¿´ÎÃ»ÓĞĞÂ¿ª±ÙÒ»¸öÄÚ´æ£¬»áÓÅ»¯
+ä¸­ç»“æœæ¯æ¬¡æ²¡æœ‰æ–°å¼€è¾Ÿä¸€ä¸ªå†…å­˜ï¼Œä¼šä¼˜åŒ–
 
-µİ¹éÎö¹¹¸Ã½Úµã
+é€’å½’ææ„è¯¥èŠ‚ç‚¹
 
-ÅÅĞò½»»»
+æ’åºäº¤æ¢
 */
